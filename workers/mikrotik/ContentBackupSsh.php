@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace app\modules\cds\content\workers\cisco;
+namespace app\modules\cds\content\workers\mikrotik;
 
 use app\modules\cds\components\ContentInstaller;
 
 /**
- * @package app\modules\cds\content\workers\cisco
+ * @package app\modules\cds\content\workers\mikrotik
  */
 class ContentBackupSsh extends ContentInstaller
 {
@@ -30,24 +30,23 @@ class ContentBackupSsh extends ContentInstaller
     public function install()
     {
 
-        if ($this->recordExists('{{%worker}}', ['name' => 'cisco_backup'])) {
-            throw new \Exception('Worker cisco_backup already exists');
+        if ($this->recordExists('{{%worker}}', ['name' => 'mikrotik_backup'])) {
+            throw new \Exception('Worker mikrotik_backup already exists');
         }
 
         $this->command->insert('{{%worker}}', [
-            'name'      => 'cisco_backup',
+            'name'      => 'mikrotik_backup',
             'task_name' => 'backup',
             'get'       => 'ssh'
         ])->execute();
 
         /** Get newly inserted worker id */
-        $worker = $this->getEntryIdentifier('{{%worker}}', ['name'=> 'cisco_backup'], 'id');
+        $worker = $this->getEntryIdentifier('{{%worker}}', ['name'=> 'mikrotik_backup'], 'id');
 
         /** Add worker jobs */
         $this->command->batchInsert('{{%job}}', ['name', 'worker_id', 'sequence_id', 'command_value', 'timeout', 'table_field'], [
-            ['terminal_length', $worker, 1, 'terminal length 0', null, null],
-            ['show_ru', $worker, 2, 'show ru', 60000, 'config'],
-            ['logout', $worker, 3, 'logout', null, null],
+            ['show_config', $worker, 1, 'export', 60000, 'config'],
+            ['quit', $worker, 2, 'quit', null, null],
         ])->execute();
 
         return true;

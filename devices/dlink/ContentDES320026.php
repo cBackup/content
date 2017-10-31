@@ -21,6 +21,9 @@ namespace app\modules\cds\content\devices\dlink;
 
 use app\modules\cds\components\ContentInstaller;
 
+/**
+ * @package app\modules\cds\content\devices\dlink
+ */
 class ContentDES320026 extends ContentInstaller
 {
 

@@ -21,6 +21,9 @@ namespace app\modules\cds\content\devices\zyxel;
 
 use app\modules\cds\components\ContentInstaller;
 
+/**
+ * @package app\modules\cds\content\devices\zyxel
+ */
 class ContentGS221024 extends ContentInstaller
 {
 

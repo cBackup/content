@@ -17,37 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace app\modules\cds\content\workers\cisco;
+namespace app\modules\cds\content\workers\dlink;
 
 use app\modules\cds\components\ContentInstaller;
 
 /**
- * @package app\modules\cds\content\workers\cisco
+ * @package app\modules\cds\content\workers\dlink
  */
-class ContentBackupSsh extends ContentInstaller
+class ContentBackupTelnet extends ContentInstaller
 {
 
     public function install()
     {
 
-        if ($this->recordExists('{{%worker}}', ['name' => 'cisco_backup'])) {
-            throw new \Exception('Worker cisco_backup already exists');
+        if ($this->recordExists('{{%worker}}', ['name' => 'd_link_backup'])) {
+            throw new \Exception('Worker d_link_backup already exists');
         }
 
         $this->command->insert('{{%worker}}', [
-            'name'      => 'cisco_backup',
+            'name'      => 'd_link_backup',
             'task_name' => 'backup',
-            'get'       => 'ssh'
+            'get'       => 'telnet'
         ])->execute();
 
         /** Get newly inserted worker id */
-        $worker = $this->getEntryIdentifier('{{%worker}}', ['name'=> 'cisco_backup'], 'id');
+        $worker = $this->getEntryIdentifier('{{%worker}}', ['name'=> 'd_link_backup'], 'id');
 
         /** Add worker jobs */
         $this->command->batchInsert('{{%job}}', ['name', 'worker_id', 'sequence_id', 'command_value', 'timeout', 'table_field'], [
-            ['terminal_length', $worker, 1, 'terminal length 0', null, null],
-            ['show_ru', $worker, 2, 'show ru', 60000, 'config'],
-            ['logout', $worker, 3, 'logout', null, null],
+            ['disable_clipaging', $worker, 1, 'disable clipaging', null, null],
+            ['show_config', $worker, 2, 'show config current_config', 60000, 'config'],
+            ['enable_clipaging', $worker, 3, 'enable clipaging', null, null],
+            ['logout', $worker, 4, 'logout', null, null],
         ])->execute();
 
         return true;

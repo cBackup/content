@@ -21,6 +21,9 @@ namespace app\modules\cds\content\devices\cisco;
 
 use app\modules\cds\components\ContentInstaller;
 
+/**
+ * @package app\modules\cds\content\devices\cisco
+ */
 class ContentC4500 extends ContentInstaller
 {
 

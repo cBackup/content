@@ -21,6 +21,9 @@ namespace app\modules\cds\content\devices\mikrotik;
 
 use app\modules\cds\components\ContentInstaller;
 
+/**
+ * @package app\modules\cds\content\devices\mikrotik
+ */
 class ContentRb433ah extends ContentInstaller
 {
 

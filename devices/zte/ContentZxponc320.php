@@ -17,50 +17,53 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace app\modules\cds\content\devices\zyxel;
+namespace app\modules\cds\content\devices\zte;
 
 use app\modules\cds\components\ContentInstaller;
 
 /**
- * @package app\modules\cds\content\devices\zyxel
+ * @package app\modules\cds\content\devices\zte
  */
-class ContentMES350024f extends ContentInstaller
+class ContentZxponc320 extends ContentInstaller
 {
-
     public function install()
     {
 
         /** Insert auth template */
-        if (!$this->recordExists('{{%device_auth_template}}', ['name' => 'zyxel_auth'])) {
+        if (!$this->recordExists('{{%device_auth_template}}', ['name' => 'zte_auth'])) {
             $this->command->insert('{{%device_auth_template}}', [
-                'name'          => 'zyxel_auth',
-                'auth_sequence' => "ame:\n{{telnet_login}}\nord:\n{{telnet_password}}\n#",
-                'description'   => 'Zyxel authentication sequence'
+                'name'          => 'zte_auth',
+                'auth_sequence' => '#',
+                'description'   => 'ZTE authentication sequence'
             ])->execute();
         }
 
-        /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500_24F'])) {
-            throw new \Exception('Device Zyxel MES3500_24F already exists');
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'ZTE'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'ZTE'])->execute();
         }
 
-        /** Insert new Device Zyxel MES3500_24F  */
+        /** Check if device exists */
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'ZTE', 'model' => 'ZXPON_C320'])) {
+            throw new \Exception('Device ZTE ZXPON_C320 already exists');
+        }
+
+        /** Insert new Device ZTE C2960  */
         $this->command->insert('{{%device}}', [
-            'vendor'             => 'Zyxel',
-            'model'              => 'MES3500_24F',
-            'auth_template_name' => 'zyxel_auth'
+            'vendor'             => 'ZTE',
+            'model'              => 'ZXPON_C320',
+            'auth_template_name' => 'zte_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500_24F'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'ZTE', 'model' => 'ZXPON_C320'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [
-            [$device, '1.3.6.1.4.1.890.1.5.8.57', null, 'MES3500-24F']
+            [$device, '1.3.6.1.4.1.3902.1015.320.1.2', null, 'ZXR10 ROS Version V4.6.02A ZXPON C320 Software, Version V1.2.5P2 Copyright (c) 2000-2006 by ZTE Corporation Compiled 2013-09-23 07:34:16'],
         ])->execute();
 
         return true;
 
     }
-
 }

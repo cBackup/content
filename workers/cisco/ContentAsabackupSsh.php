@@ -22,7 +22,7 @@ namespace app\modules\cds\content\workers\cisco;
 use app\modules\cds\components\ContentInstaller;
 
 /**
- * @package app\modules\cds\content\devices\cisco
+ * @package app\modules\cds\content\workers\cisco
  */
 class ContentAsabackupSsh extends ContentInstaller
 {
