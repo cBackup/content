@@ -39,6 +39,11 @@ class ContentDGS312024sc extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Dlink'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Dlink'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DGS_3120_24SC'])) {
             throw new \Exception('Device Dlink DGS_3120_24SC already exists');

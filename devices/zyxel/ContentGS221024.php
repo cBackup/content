@@ -39,6 +39,11 @@ class ContentGS221024 extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Zyxel'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Zyxel'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'GS2210_24'])) {
             throw new \Exception('Device Zyxel GS2210_24 already exists');

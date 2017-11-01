@@ -39,6 +39,11 @@ class ContentRb433ah extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Mikrotik'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Mikrotik'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Mikrotik', 'model' => 'RB433AH'])) {
             throw new \Exception('Device Mikrotik RB433AH already exists');

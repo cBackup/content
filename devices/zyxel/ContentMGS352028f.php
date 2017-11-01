@@ -39,6 +39,11 @@ class ContentMGS352028f extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Zyxel'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Zyxel'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MGS3520_28F'])) {
             throw new \Exception('Device Zyxel MGS3520_28F already exists');

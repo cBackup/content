@@ -39,6 +39,11 @@ class ContentDES320026 extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Dlink'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Dlink'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DES_3200_26'])) {
             throw new \Exception('Device Dlink DES_3200_26 already exists');

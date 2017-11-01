@@ -39,6 +39,11 @@ class ContentMES350024f extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Zyxel'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Zyxel'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500_24F'])) {
             throw new \Exception('Device Zyxel MES3500_24F already exists');

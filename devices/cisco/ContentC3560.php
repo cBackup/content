@@ -39,6 +39,11 @@ class ContentC3560 extends ContentInstaller
             ])->execute();
         }
 
+        /** Check if vendor exists */
+        if (!$this->recordExists('{{%vendor}}', ['name'=> 'Cisco'])) {
+            $this->command->insert('{{%vendor}}', ['name' => 'Cisco'])->execute();
+        }
+
         /** Check if device exists */
         if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_3560'])) {
             throw new \Exception('Device Cisco c_3560 already exists');
