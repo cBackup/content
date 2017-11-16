@@ -31,9 +31,9 @@ class ContentC3750 extends ContentInstaller
     {
 
         /** Insert auth template */
-        if (!$this->recordExists('{{%device_auth_template}}', ['name' => 'cisco_with_password'])) {
+        if (!$this->recordExists('{{%device_auth_template}}', ['name' => 'cisco_auth_with_password'])) {
             $this->command->insert('{{%device_auth_template}}', [
-                'name'          => 'cisco_with_password',
+                'name'          => 'cisco_auth_with_password',
                 'auth_sequence' => "in:\n{{telnet_login}}\nord:\n{{telnet_password}}\n>\nena\nord:\n{{enable_password}}\n#",
                 'description'   => 'Cisco authentication sequence with enable password'
             ])->execute();
@@ -53,7 +53,7 @@ class ContentC3750 extends ContentInstaller
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Cisco',
             'model'              => 'c_3750',
-            'auth_template_name' => 'cisco_with_password'
+            'auth_template_name' => 'cisco_auth_with_password'
         ])->execute();
 
         /** Get newly inserted device id */
