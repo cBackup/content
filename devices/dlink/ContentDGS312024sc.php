@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentDGS312024sc extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,19 +49,19 @@ class ContentDGS312024sc extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DGS_3120_24SC'])) {
-            throw new \Exception('Device Dlink DGS_3120_24SC already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DGS-3120-24SC'])) {
+            throw new \Exception('Device Dlink DGS-3120-24SC already exists');
         }
 
-        /** Insert new Device Dlink DGS_3120_24SC  */
+        /** Insert new Device Dlink DGS-3120-24SC  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Dlink',
-            'model'              => 'DGS_3120_24SC',
+            'model'              => 'DGS-3120-24SC',
             'auth_template_name' => 'd_link_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DGS_3120_24SC'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DGS-3120-24SC'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

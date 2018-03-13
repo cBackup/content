@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentAsabackupSsh extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 

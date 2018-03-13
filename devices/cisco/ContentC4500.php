@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentC4500 extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,19 +49,19 @@ class ContentC4500 extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_4500'])) {
-            throw new \Exception('Device Cisco c_4500 already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'C4500'])) {
+            throw new \Exception('Device Cisco C4500 already exists');
         }
 
-        /** Insert new Device Cisco c_4500  */
+        /** Insert new Device Cisco C4500  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Cisco',
-            'model'              => 'c_4500',
+            'model'              => 'C4500',
             'auth_template_name' => 'cisco_auth_with_password'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_4500'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'C4500'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

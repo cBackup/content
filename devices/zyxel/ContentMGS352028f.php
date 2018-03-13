@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentMGS352028f extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,19 +49,19 @@ class ContentMGS352028f extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MGS3520_28F'])) {
-            throw new \Exception('Device Zyxel MGS3520_28F already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MGS3520-28F'])) {
+            throw new \Exception('Device Zyxel MGS3520-28F already exists');
         }
 
-        /** Insert new Device Zyxel MGS3520_28F  */
+        /** Insert new Device Zyxel MGS3520-28F  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Zyxel',
-            'model'              => 'MGS3520_28F',
+            'model'              => 'MGS3520-28F',
             'auth_template_name' => 'zyxel_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MGS3520_28F'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MGS3520-28F'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

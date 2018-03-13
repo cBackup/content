@@ -26,6 +26,10 @@ use app\modules\cds\components\ContentInstaller;
  */
 class ContentC2960 extends ContentInstaller
 {
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -44,19 +48,19 @@ class ContentC2960 extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_2960'])) {
-            throw new \Exception('Device Cisco c_2960 already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'C2960'])) {
+            throw new \Exception('Device Cisco C2960 already exists');
         }
 
         /** Insert new Device Cisco C2960  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Cisco',
-            'model'              => 'c_2960',
+            'model'              => 'C2960',
             'auth_template_name' => 'cisco_auth_with_password'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_2960'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'C2960'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [
