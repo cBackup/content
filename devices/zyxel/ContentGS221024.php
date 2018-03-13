@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentGS221024 extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,19 +49,19 @@ class ContentGS221024 extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'GS2210_24'])) {
-            throw new \Exception('Device Zyxel GS2210_24 already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'GS2210-24'])) {
+            throw new \Exception('Device Zyxel GS2210-24 already exists');
         }
 
-        /** Insert new Device Zyxel GS2210_24  */
+        /** Insert new Device Zyxel GS2210-24  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Zyxel',
-            'model'              => 'GS2210_24',
+            'model'              => 'GS2210-24',
             'auth_template_name' => 'zyxel_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'GS2210_24'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'GS2210-24'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

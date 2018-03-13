@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentC3560 extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,23 +49,23 @@ class ContentC3560 extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_3560'])) {
-            throw new \Exception('Device Cisco c_3560 already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'C3560'])) {
+            throw new \Exception('Device Cisco C3560 already exists');
         }
 
         /** Insert new Device Cisco C3560  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Cisco',
-            'model'              => 'c_3560',
+            'model'              => 'C3560',
             'auth_template_name' => 'cisco_auth_with_password'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'c_3560'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Cisco', 'model' => 'C3560'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [
-            [$device, '1.3.6.1.4.1.9.1.633', null, 'Cisco IOS Software, C3560 Software (C3560-IPSERVICESK9-M), Version 12.2(53)SE, RELEASE SOFTWARE (fc2)Technical Support: http://www.cisco.com/techsupportCopyright (c) 1986-2009 by Cisco Systems, Inc.Compiled Sun 13-Dec-09 15:45 by prod_rel_team'],
+            [$device, '1.3.6.1.4.1.9.1.633', null, 'Cisco IOS Software, C3560 Software (C3560-IPSERVICESK9-M), Version 12.2(53)SE, RELEASE SOFTWARE (fc2)Technical Support: http://www.cisco.com/techsupportCopyright (c) 1986-2009 by Cisco Systems, Inc.Compiled Sun 13-DeC09 15:45 by prod_rel_team'],
             [$device, '1.3.6.1.4.1.9.1.633', null, 'Cisco IOS Software, C3560 Software (C3560-IPBASEK9-M), Version 12.2(55)SE3, RELEASE SOFTWARE (fc1)Technical Support: http://www.cisco.com/techsupportCopyright (c) 1986-2011 by Cisco Systems, Inc.Compiled Thu 05-May-11 16:13 by prod_rel_team'],
         ])->execute();
 

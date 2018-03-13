@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentDES3526 extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,19 +49,19 @@ class ContentDES3526 extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DES_3526'])) {
-            throw new \Exception('Device Dlink DES_3526 already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DES-3526'])) {
+            throw new \Exception('Device Dlink DES-3526 already exists');
         }
 
-        /** Insert new Device Dlink DES_3526  */
+        /** Insert new Device Dlink DES-3526  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Dlink',
-            'model'              => 'DES_3526',
+            'model'              => 'DES-3526',
             'auth_template_name' => 'd_link_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DES_3526'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Dlink', 'model' => 'DES-3526'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

@@ -27,6 +27,10 @@ use app\modules\cds\components\ContentInstaller;
 class ContentMES350024f extends ContentInstaller
 {
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -45,19 +49,19 @@ class ContentMES350024f extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500_24F'])) {
-            throw new \Exception('Device Zyxel MES3500_24F already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500-24F'])) {
+            throw new \Exception('Device Zyxel MES3500-24F already exists');
         }
 
-        /** Insert new Device Zyxel MES3500_24F  */
+        /** Insert new Device Zyxel MES3500-24F  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'Zyxel',
-            'model'              => 'MES3500_24F',
+            'model'              => 'MES3500-24F',
             'auth_template_name' => 'zyxel_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500_24F'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'Zyxel', 'model' => 'MES3500-24F'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

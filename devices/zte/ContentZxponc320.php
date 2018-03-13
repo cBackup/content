@@ -26,6 +26,10 @@ use app\modules\cds\components\ContentInstaller;
  */
 class ContentZxponc320 extends ContentInstaller
 {
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
@@ -44,19 +48,19 @@ class ContentZxponc320 extends ContentInstaller
         }
 
         /** Check if device exists */
-        if ($this->recordExists('{{%device}}', ['vendor'=> 'ZTE', 'model' => 'ZXPON_C320'])) {
-            throw new \Exception('Device ZTE ZXPON_C320 already exists');
+        if ($this->recordExists('{{%device}}', ['vendor'=> 'ZTE', 'model' => 'ZXPON-C320'])) {
+            throw new \Exception('Device ZTE ZXPON-C320 already exists');
         }
 
         /** Insert new Device ZTE C2960  */
         $this->command->insert('{{%device}}', [
             'vendor'             => 'ZTE',
-            'model'              => 'ZXPON_C320',
+            'model'              => 'ZXPON-C320',
             'auth_template_name' => 'zte_auth'
         ])->execute();
 
         /** Get newly inserted device id */
-        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'ZTE', 'model' => 'ZXPON_C320'], 'id');
+        $device = $this->getEntryIdentifier('{{%device}}', ['vendor'=> 'ZTE', 'model' => 'ZXPON-C320'], 'id');
 
         /** Add device attributes */
         $this->command->batchInsert('{{%device_attributes}}', ['device_id', 'sysobject_id', 'hw', 'sys_description'], [

@@ -26,6 +26,10 @@ use app\modules\cds\components\ContentInstaller;
  */
 class ContentAuthnoenable extends ContentInstaller
 {
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function install()
     {
 
